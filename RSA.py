@@ -102,6 +102,7 @@ def ext_gcd(e, m):
         q = u3//v3
         v1,v2,v3,u1,u2,u3 = (u1-q*v1),(u2-q*v2),(u3-q*v3),v1,v2,v3
     return u1%m
+ 
     
 def encrypt(m,e,n):
     '''
@@ -109,11 +110,13 @@ def encrypt(m,e,n):
     '''
     return fast_mod(m,e,n)
 
+
 def decrypt(c,d,n):
     '''
     解密
     '''
     return fast_mod(c,d,n)
+
 
 if __name__== '__main__':
     (n,e,d)=key(60)
