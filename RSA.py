@@ -1,6 +1,7 @@
 # -*- coding = utf-8 -*-
 import math
 import random
+
 def fast_mod(x,n,m):
     '''
     快速模指运算
@@ -17,17 +18,6 @@ def fast_mod(x,n,m):
         if temp<1:
             return a
 
-def isPrime(n):
-    """
-    判断一个数是否为素数
-    :param type(n) == int
-    """
-    if n <= 1:
-        return False
-    for i in range(2, int(math.sqrt(n))+1):
-        if n % i == 0:
-            return False
-    return True
 
 def gcd(x,y): 
     '''
@@ -39,27 +29,10 @@ def gcd(x,y):
         x,y=y,x%y
     return x
 
-def Phi(n) :
-    """
-    计算欧拉函数
-    """
-    if(n<=0):
-        print('请输入正数')
-    elif(n==1):
-        return 1
-    elif(isPrime(n)):
-        return(n-1)
-    else:
-        p=1
-        for i in range(2,n):
-            if(gcd(i,n)==1):
-                p+=1
-        return p
 
-           
 def choice_prime(keylength):
     """
-    随机选出素数p,q
+    随机选出素数
     """
     while True:
         #选择随机数
@@ -73,6 +46,7 @@ def choice_prime(keylength):
                     break
             if found == True:
                 return n
+
 
 def prime_test(n):
     """
@@ -95,6 +69,7 @@ def prime_test(n):
     #n 不是素数
     return "composite"
 
+
 def key(key_len):
     '''
     求n,e,d
@@ -114,9 +89,10 @@ def key(key_len):
     d=ext_gcd(e,f)
     return (n,e,d)
 
+
 def ext_gcd(e, m):
     """
-    扩展欧几里得算法
+    扩展欧基里德算法
     """
     if gcd(e,m)!=1:
         return None
