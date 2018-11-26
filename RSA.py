@@ -56,19 +56,6 @@ def Phi(n) :
                 p+=1
         return p
 
-def test(n):
-    j=n-1
-    m=0
-    for i in range(1,n-1):
-        if ((n-1)%j==0 and j%2==1):
-           m=j
-        else:
-            j=j-1
-    a=(n-1)/m
-    t=0
-    while(2**t!=a):
-        t+=1
-    return m,t
            
 def choice_prime(keylength):
     """
@@ -115,21 +102,51 @@ def key(key_len):
     p=choice_prime(key_len)
     q=choice_prime(key_len)
     n=q*p
+    #print('p:'+str(p))
+    #print("q:"+str(q))
+    print('n:'+str(n))
     f=(p-1)*(q-1)
-    while true:
-        f1=random.randint(1,f)
-        if gcd(f1,f)==1:
-            e=f1
+    while True:
+        e=random.randint(1,f) 
+        if gcd(e,f)==1:
             break
+    print('e:'+str(e))
+    d=ext_gcd(e,f)
+    return (n,e,d)
 
-def ext_gcd(a, b):
+def ext_gcd(e, m):
     """
     扩展欧几里得算法
     """
-    if b == 0:
-        return 1, 0, a
-    else:
-        x, y, q = ext_gcd(b, a % b) 
-        x, y = y, (x - (a // b) * y)
-        return x, y, q
+    if gcd(e,m)!=1:
+        return None
+    u1,u2,u3 = 1,0,e
+    v1,v2,v3 = 0,1,m
+    while v3!=0:
+        q = u3//v3
+        v1,v2,v3,u1,u2,u3 = (u1-q*v1),(u2-q*v2),(u3-q*v3),v1,v2,v3
+    return u1%m
     
+def encrypt(m,e,n):
+    '''
+    加密
+    '''
+    return fast_mod(m,e,n)
+
+def decrypt(c,d,n):
+    '''
+    解密
+    '''
+    return fast_mod(c,d,n)
+
+if __name__== '__main__':
+    (n,e,d)=key(60)
+    #从0到2的20次方随机选取一个数字作为明文
+    m=random.randint(0,1<<20) 
+    print('M:'+str(m))
+    C=encrypt(m,e,n)
+    M=decrypt(C,d,n)
+    print('encrypt result:'+str(C))
+    print('decrypt result:'+str(M))
+    
+
